@@ -4,7 +4,7 @@ import dash
 import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
-from jupyter_dash import JupyterDash
+#from jupyter_dash import JupyterDash
 import plotly.graph_objects as go
 import plotly.express as px
 from dash import no_update
@@ -13,7 +13,7 @@ import base64
 PLxG_21 = pd.read_csv('adv_shooting_PL_21.csv')
 
 # Create a dash application
-app = JupyterDash(__name__)
+app = dash.Dash()
 #JupyterDash.infer_jupyter_proxy_config()
 #app.config.suppress_callback_exceptions = True
 test_png = 'pl_img.png'
