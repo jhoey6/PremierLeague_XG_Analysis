@@ -71,27 +71,23 @@ app.layout = html.Div(children=[
         
     ]),
     
-    html.Div(dcc.Graph(id='plot1')),
-    html.Div(dcc.Graph(id='plot2'))
+    html.Div(dcc.Graph(id='plot1'))
         
     ])
 
-@app.callback([Output(component_id='plot1', component_property='figure'),
-               Output(component_id='plot2', component_property='figure')],
+
+@app.callback(Output(component_id='plot1', component_property='figure'),
               [Input(component_id='team-select', component_property='value'),
-              Input(component_id='matchday-range', component_property='value')])
+               Input(component_id='matchday-range', component_property='value')])
 def matchday_xG(teams, rounds):
-    df_rounds = PLxG_21[PLxG_21['Round'].between(rounds)]
+    df_rounds = PLxG_21[PLxG_21['Round'].between(rounds[0], rounds[1])]
     if type(teams) == 'str':
-        df_teams = df_rounds[df_rounds['Team'] == teams]
+        df = df_rounds[df_rounds['Team'] == teams]
     else:
-        df_teams = df_rounds[df_rounds['Team'].isin(teams)]
-        
-    rounds_grouped = df_rounds.groupby('Team').mean().rest_index
-    
-    xG_trend = px.area(df_teams, x='Round', y='xG', color='Team')
-    xG_v_GF = px.scatter(rounds_grouped, x='xG', y='GF', color='Team')
-    return xG_trend, xG_v_GF
+        df = df_rounds[df_rounds['Team'].isin(teams)]
+    fig = px.area(df, x='Round', y='xG', color='Team')
+    return fig
+              
 
 # Run the app
 if __name__ == '__main__':
