@@ -6,3 +6,4 @@ test squadh
 testing revert
 test develop branch sync
 commitfrom clone 1
+commit2 from clone 2
