@@ -1,2 +1,3 @@
 testing commits on feature 1
 rebase commit from feature 1
+commit from clone2
